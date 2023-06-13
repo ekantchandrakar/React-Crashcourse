@@ -1,16 +1,18 @@
 import "./App.css";
-// import styles from "./App.module.css"; // className={styles.name}
+import User from "./User";
 
 function App() {
-	const age = 15;
-	const isGreen = true;
+	const users = [
+		{ name: "Pedro", age: 21 },
+		{ name: "Jake", age: 25 },
+		{ name: "Jessica", age: 45 },
+	];
 
 	return (
 		<div className="App">
-			{age >= 18 ? <h1>OVER AGE</h1> : <h1>UNDER AGE</h1>}
-			<h1 style={{ color: isGreen ? "green" : "red" }}>THIS HAS A COLOR</h1>
-
-			{isGreen && <button>THIS IS A BUTTON</button>}
+			{users.map((user, key) => {
+				return <User key={key} name={user.name} age={user.age} />;
+			})}
 		</div>
 	);
 }
