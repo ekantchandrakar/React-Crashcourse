@@ -1,37 +1,16 @@
 import "./App.css";
-
-const Job = (props) => {
-	return (
-		<div>
-			<h1>{props.name}</h1>
-			<h2>{props.position}</h2>
-			<h2>{props.salary}</h2>
-			<p>{props.company}</p>
-		</div>
-	);
-};
+// import styles from "./App.module.css"; // className={styles.name}
 
 function App() {
+	const age = 15;
+	const isGreen = true;
+
 	return (
 		<div className="App">
-			<Job
-				name="John"
-				position={"Juniour SDE"}
-				salary={900000}
-				company={"Google"}
-			/>
-			<Job
-				name="Kate"
-				position={"SDE - I"}
-				salary={1300000}
-				company={"Amazon"}
-			/>
-			<Job
-				name="Smith"
-				position={"SDE - II"}
-				salary={1500000}
-				company={"Microsoft"}
-			/>
+			{age >= 18 ? <h1>OVER AGE</h1> : <h1>UNDER AGE</h1>}
+			<h1 style={{ color: isGreen ? "green" : "red" }}>THIS HAS A COLOR</h1>
+
+			{isGreen && <button>THIS IS A BUTTON</button>}
 		</div>
 	);
 }
