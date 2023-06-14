@@ -2,18 +2,16 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-	const [showText, setShowText] = useState(true);
+	const [textColor, setTextColor] = useState("black");
 
 	const clickHandler = () => {
-		setShowText((prevState) => {
-			return !prevState;
-		});
+		setTextColor(textColor === "black" ? "red" : "black");
 	};
 
 	return (
 		<div className="App">
 			<button onClick={clickHandler}>Show/Hide</button>
-			{showText && <h1>Hii My Name is Something.</h1>}
+			<h1 style={{ color: textColor }}>Hii My Name is Something.</h1>
 		</div>
 	);
 }
