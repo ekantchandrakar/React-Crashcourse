@@ -1,63 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import Task from "./Task";
+import Axios from "axios";
 
 function App() {
-	const [todoList, setTodoList] = useState([]);
-	const [newTask, setNewTask] = useState("");
+	const [excuse, setExcuse] = useState("");
 
-	const handleInputChange = (event) => {
-		setNewTask(event.target.value);
-	};
-
-	const handleADDTask = () => {
-		const task = {
-			id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
-			taskName: newTask,
-			completed: false,
-		};
-
-		setTodoList((prevState) => {
-			return [...prevState, task];
+	const fetchExcuseHandler = () => {
+		Axios.get("https://excuser-three.vercel.app/v1/excuse/").then((res) => {
+			setExcuse(res.data[0].excuse);
 		});
 	};
 
-	const handleTaskDelete = (id) => {
-		setTodoList(todoList.filter((task) => task.id !== id));
-	};
-
-	const handleCompletedTask = (id) => {
-		setTodoList(
-			todoList.map((task) => {
-				if (task.id === id) {
-					return { ...task, completed: true };
-				} else {
-					return task;
-				}
-			})
-		);
-	};
+	useEffect(() => {
+		fetchExcuseHandler();
+	}, []);
 
 	return (
 		<div className="App">
-			<div className="addTask">
-				<input type="text" onChange={handleInputChange} />
-				<button onClick={handleADDTask}>Add Task</button>
-			</div>
-			<div className="list">
-				{todoList.map((task) => {
-					return (
-						<Task
-							key={task.id}
-							taskName={task.taskName}
-							id={task.id}
-							completed={task.completed}
-							handleTaskDelete={handleTaskDelete}
-							handleCompletedTask={handleCompletedTask}
-						/>
-					);
-				})}
-			</div>
+			<button onClick={fetchExcuseHandler}>Generate Excuse</button>
+			<p>{excuse}</p>
 		</div>
 	);
 }
