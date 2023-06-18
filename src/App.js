@@ -4,16 +4,20 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Contact from "./pages/Contact";
 import Navbar from "./Navbar";
-import { useState, createContext } from "react";
-
-export const AppContext = createContext();
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
-	const [username, setUsername] = useState("PedroTech");
+	const client = new QueryClient({
+		defaultOptions: {
+			queries: {
+				refetchOnWindowFocus: false,
+			},
+		},
+	});
 
 	return (
 		<div className="App">
-			<AppContext.Provider value={{ username, setUsername }}>
+			<QueryClientProvider client={client}>
 				<Router>
 					<Navbar />
 					<Routes>
@@ -23,7 +27,7 @@ function App() {
 						<Route path="*" element={<h1>404 Page Not Found</h1>} />
 					</Routes>
 				</Router>
-			</AppContext.Provider>
+			</QueryClientProvider>
 		</div>
 	);
 }
